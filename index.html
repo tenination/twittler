@@ -42,7 +42,7 @@
            }
 
             function continueStreams () {
-              
+
               setTimeout(function () {
                 if (streams.home[index] !== undefined && onHomePage) {
                   var newTweet = streams.home[index];
@@ -100,39 +100,11 @@
                 $userTweet.css({'background-color': 'yellow', 'font-weight': 'bold'});
                }
 
-               index = userTweetsLength;
-               continueUserStreams();
+               $( "button" ).click(function() {   
+                 loadStreams();
+               });
 
-               function continueUserStreams() {
-                 setTimeout(function () {
-
-                  if (streams.users[clickedUser][index] !== undefined) {
-                    var userTweet = streams.users[clickedUser][index];
-                    var $userTweet = $('<div></div>');
-
-                    var $UserName = $('<span></span>');
-                    $UserName.text('@' + clickedUser);              
-                    $UserName.appendTo($body);
-                    $UserName.css({'background-color': 'pink', 'font-weight': 'bold', 'float': 'left'});
-
-                    $userTweet.text(':' + userTweet.message + ' (' + userTweet.created_at + ')');
-                    $userTweet.appendTo($body);
-                    $userTweet.css({'background-color': 'yellow', 'font-weight': 'bold'});
-
-                    $( "button" ).click(function() {   
-                     loadStreams();
-                    });
-
-                    index++;
-
-                  }
-
-                   continueUserStreams();
-
-                 }, 0);
-
-               }
-                
+                     
 
             }
 
