@@ -9,78 +9,130 @@
 
       
       $(document).ready(function(){
-        var $body = $('body');
-        var onHomePage = true;
-        //$body.html('');
-        $('<h1></h1>').text('TWITTLER').appendTo($body);
-        var index = 0;
+                 
+          var onHomePage;
+          var $body = $('body');
+          var index;
 
-        while (index < streams.home.length) {
-          var newTweet = streams.home[index];
-          var $newTweet = $('<div></div>');
-          $newTweet.text('@' + newTweet.user + ':' + newTweet.message + ' (' + newTweet.created_at + ')');
-          $newTweet.appendTo($body);
-          index++;
-        }
+          loadStreams();
 
-        
+          function loadStreams () {
+            onHomePage = true;
+            $body.html('');
+            $('<h1></h1>').text('TWITTLER').appendTo($body);
+            index = 0;
 
-        rep();
-                       
-      
+            while (index < streams.home.length) {
+              var newTweet = streams.home[index];
+              var $newTweet = $('<div></div>');
 
-            function rep () {
+              var $UserName = $('<span></span>');
+              $UserName.text('@' + newTweet.user);              
+              $UserName.appendTo($body);
+              $UserName.css({'background-color': 'pink', 'font-weight': 'bold', 'float': 'left'});
 
+              $newTweet.text(':' + newTweet.message + ' (' + newTweet.created_at + ')');
+              $newTweet.appendTo($body);
+              $newTweet.css({'background-color': 'yellow', 'font-weight': 'bold'});
+
+              index++;
+            }
+
+            continueStreams();
+           }
+
+            function continueStreams () {
+              
               setTimeout(function () {
                 if (streams.home[index] !== undefined && onHomePage) {
                   var newTweet = streams.home[index];
                   var $newTweet = $('<div></div>');
 
                   var $UserName = $('<span></span>');
-                  $UserName.text(newTweet.user);              
+                  $UserName.text('@' + newTweet.user);              
                   $UserName.appendTo($body);
                   $UserName.css({'background-color': 'pink', 'font-weight': 'bold', 'float': 'left'});
 
-                  $newTweet.text('@' + newTweet.user + ':' + newTweet.message + ' (' + newTweet.created_at + ')');
+                  $newTweet.text(':' + newTweet.message + ' (' + newTweet.created_at + ')');
                   $newTweet.appendTo($body);
                   $newTweet.css({'background-color': 'yellow', 'font-weight': 'bold'});
 
 
                   $( "span" ).click(function() {
-                    onHomePage = false;
-                    //clear screen
-                    $body.html('');
-                    //create home button to get back to main twittler feed
-                    var $homeButton = $('<button></button>');
-                    $homeButton.text('Twittler Home');
-                    $homeButton.appendTo($body);
-                    //add new line
-                    $('<div></div>').appendTo($body);
-                    //display appropriate user time line
-                    
-                    var clickedUser = $(this).text();
-                    var userTweetsLength = streams.users[clickedUser].length;
-
-                    for(var i = 0; i < userTweetsLength; i++) {
-                      var userTweet = streams.users[clickedUser][i];
-                      var $userTweet = $('<div></div>');
-                      $userTweet.text('@' + userTweet.user + ':' + userTweet.message + ' (' + userTweet.created_at + ')');
-                      $userTweet.appendTo($body);
-                      $userTweet.css({'background-color': 'yellow', 'font-weight': 'bold'});
-                    }
-
-
-                
-                      
-
-
+                    var clickedUser = $(this).text().substr(1);
+                    goToUserTimeline(clickedUser);
                   });
-
 
                   index++;
                  }
-                rep();
+
+                continueStreams();
+
               }, 0);
+
+            }
+
+            function goToUserTimeline (clickedUser) { 
+
+              onHomePage = false;
+              $body.html('');
+              //create home button to get back to main twittler feed
+              var $homeButton = $('<button></button>');
+              $homeButton.text('Twittler Home');
+              $homeButton.appendTo($body);
+              //add new line
+              $('<div></div>').appendTo($body);
+              //display appropriate user time line
+                    
+              var userTweetsLength = streams.users[clickedUser].length;
+
+              for(var i = 0; i < userTweetsLength; i++) {
+                var userTweet = streams.users[clickedUser][i];
+                var $userTweet = $('<div></div>');
+
+                var $UserName = $('<span></span>');
+                $UserName.text('@' + clickedUser);              
+                $UserName.appendTo($body);
+                $UserName.css({'background-color': 'pink', 'font-weight': 'bold', 'float': 'left'});
+
+                $userTweet.text(':' + userTweet.message + ' (' + userTweet.created_at + ')');
+                $userTweet.appendTo($body);
+                $userTweet.css({'background-color': 'yellow', 'font-weight': 'bold'});
+               }
+
+               index = userTweetsLength;
+               continueUserStreams();
+
+               function continueUserStreams() {
+                 setTimeout(function () {
+
+                  if (streams.users[clickedUser][index] !== undefined) {
+                    var userTweet = streams.users[clickedUser][index];
+                    var $userTweet = $('<div></div>');
+
+                    var $UserName = $('<span></span>');
+                    $UserName.text('@' + clickedUser);              
+                    $UserName.appendTo($body);
+                    $UserName.css({'background-color': 'pink', 'font-weight': 'bold', 'float': 'left'});
+
+                    $userTweet.text(':' + userTweet.message + ' (' + userTweet.created_at + ')');
+                    $userTweet.appendTo($body);
+                    $userTweet.css({'background-color': 'yellow', 'font-weight': 'bold'});
+
+                    $( "button" ).click(function() {   
+                     loadStreams();
+                    });
+
+                    index++;
+
+                  }
+
+                   continueUserStreams();
+
+                 }, 0);
+
+               }
+                
 
             }
 
