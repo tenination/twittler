@@ -76,6 +76,7 @@
 
               onHomePage = false;
               $body.html('');
+              $('<h1></h1>').text('@' + clickedUser + ' Timeline').appendTo($body);
               //create home button to get back to main twittler feed
               var $homeButton = $('<button></button>');
               $homeButton.text('Twittler Home');
