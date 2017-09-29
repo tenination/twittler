@@ -77,6 +77,11 @@
               onHomePage = false;
               $body.html('');
               $('<h1></h1>').text('@' + clickedUser + ' Timeline').appendTo($body);
+              var i = 0;
+
+              var $updateButton = $('<button></button>');
+              $updateButton.text('Update');
+              $updateButton.appendTo($body);
               //create home button to get back to main twittler feed
               var $homeButton = $('<button></button>');
               $homeButton.text('Twittler Home');
@@ -87,7 +92,7 @@
                     
               var userTweetsLength = streams.users[clickedUser].length;
 
-              for(var i = 0; i < userTweetsLength; i++) {
+              for(i = 0; i < userTweetsLength; ++i) {
                 var userTweet = streams.users[clickedUser][i];
                 var $userTweet = $('<div></div>');
 
@@ -101,12 +106,14 @@
                 $userTweet.css({'background-color': 'yellow', 'font-weight': 'bold'});
                }
 
-               $( "button" ).click(function() {   
+               $homeButton.click(function() {   
                  loadStreams();
                });
 
-                     
-
+               $updateButton.click(function() {   
+                  goToUserTimeline(clickedUser);
+               });
+                 
             }
 
       });
