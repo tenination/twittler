@@ -19,7 +19,12 @@
           function loadStreams () {
             onHomePage = true;
             $body.html('');
-            $('<h1></h1>').text('TWITTLER').appendTo($body);
+        
+            var $websiteLogo = $('<img src="twittler.png" >');
+            $websiteLogo.appendTo($body);
+            var $space = $('<div></div>');
+            $space.appendTo($body);
+
             index = 0;
 
             while (index < streams.home.length) {
@@ -29,11 +34,29 @@
               var $UserName = $('<span></span>');
               $UserName.text('@' + newTweet.user);              
               $UserName.appendTo($body);
-              $UserName.css({'background-color': 'pink', 'font-weight': 'bold', 'float': 'left'});
+              $UserName.css({'font-weight': 'bold', 'font-size':30, 'float':'left', 'margin-left':200});
 
-              $newTweet.text(':' + newTweet.message + ' (' + newTweet.created_at + ')');
+              if(newTweet.user === 'douglascalhoun') {
+                $UserName.css({'background-color':'pink'});
+              }
+              if(newTweet.user === 'mracus') {
+                $UserName.css({'background-color':'aqua'});
+              }
+              if(newTweet.user === 'shawndrost') {
+                $UserName.css({'background-color':'burlywood'});
+              }
+              if(newTweet.user === 'sharksforcheap') {
+                $UserName.css({'background-color':'greenyellow'});
+              }
+
+              var $tweetDate = $('<div></div>');
+              $tweetDate.text(newTweet.created_at);              
+              $tweetDate.appendTo($body);
+              $tweetDate.css({'background-color': 'beige', 'font-weight': 'bold', 'font-size':10, 'float':'right', width:100, 'margin-left':1, 'margin-right':585});
+
+              $newTweet.text('  : ' + newTweet.message);
               $newTweet.appendTo($body);
-              $newTweet.css({'background-color': 'yellow', 'font-weight': 'bold'});
+              $newTweet.css({'background-color': 'yellow', 'font-size':30, 'margin-bottom':50,'margin-left':200, 'width':480});
 
               index++;
             }
@@ -51,11 +74,29 @@
                   var $UserName = $('<span></span>');
                   $UserName.text('@' + newTweet.user);              
                   $UserName.appendTo($body);
-                  $UserName.css({'background-color': 'pink', 'font-weight': 'bold', 'float': 'left'});
+                  $UserName.css({'font-weight': 'bold', 'font-size':30, 'float':'left', 'margin-left':200});
 
-                  $newTweet.text(':' + newTweet.message + ' (' + newTweet.created_at + ')');
+                  if(newTweet.user === 'douglascalhoun') {
+                    $UserName.css({'background-color':'pink'});
+                  }
+                  if(newTweet.user === 'mracus') {
+                    $UserName.css({'background-color':'aqua'});
+                  }
+                  if(newTweet.user === 'shawndrost') {
+                    $UserName.css({'background-color':'burlywood'});
+                  }
+                  if(newTweet.user === 'sharksforcheap') {
+                    $UserName.css({'background-color':'greenyellow'});
+                  }
+
+                  var $tweetDate = $('<div></div>');
+                  $tweetDate.text(newTweet.created_at);              
+                  $tweetDate.appendTo($body);
+                  $tweetDate.css({'background-color': 'beige', 'font-weight': 'bold', 'font-size':10, 'float':'right', width:100, 'margin-left':1, 'margin-right':585});
+
+                  $newTweet.text('  : ' + newTweet.message);
                   $newTweet.appendTo($body);
-                  $newTweet.css({'background-color': 'yellow', 'font-weight': 'bold'});
+                  $newTweet.css({'background-color': 'yellow', 'font-size':30, 'margin-bottom':50,'margin-left':200, 'width':480});
 
 
                   $( "span" ).click(function() {
@@ -99,11 +140,30 @@
                 var $UserName = $('<span></span>');
                 $UserName.text('@' + clickedUser);              
                 $UserName.appendTo($body);
-                $UserName.css({'background-color': 'pink', 'font-weight': 'bold', 'float': 'left'});
+                $UserName.css({'font-weight': 'bold', 'font-size':30, 'float':'left', 'margin-left':200});
 
-                $userTweet.text(':' + userTweet.message + ' (' + userTweet.created_at + ')');
+                if(clickedUser === 'douglascalhoun') {
+                  $UserName.css({'background-color':'pink'});
+                }
+                if(clickedUser === 'mracus') {
+                  $UserName.css({'background-color':'aqua'});
+                }
+                if(clickedUser === 'shawndrost') {
+                  $UserName.css({'background-color':'burlywood'});
+                }
+                if(clickedUser === 'sharksforcheap') {
+                  $UserName.css({'background-color':'greenyellow'});
+                }
+
+                var $tweetDate = $('<div></div>');
+                $tweetDate.text(userTweet.created_at);              
+                $tweetDate.appendTo($body);
+                $tweetDate.css({'background-color': 'beige', 'font-weight': 'bold', 'font-size':10, 'float':'right', width:100, 'margin-left':1, 'margin-right':585});
+
+                var $newTweet = 
+                $userTweet.text('  : ' + userTweet.message);
                 $userTweet.appendTo($body);
-                $userTweet.css({'background-color': 'yellow', 'font-weight': 'bold'});
+                $userTweet.css({'background-color': 'yellow', 'font-size':30, 'margin-bottom':50,'margin-left':200, 'width':480});
                }
 
                $homeButton.click(function() {   
